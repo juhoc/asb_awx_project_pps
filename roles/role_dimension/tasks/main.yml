@@ -1,0 +1,2 @@
+- name: Cargando PlayBook para intervenir Dimension
+  include_tasks: "{{ task_accion }}.yml"

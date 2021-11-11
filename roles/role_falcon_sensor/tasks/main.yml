@@ -1,0 +1,2 @@
+- name: Cargando PlayBook para intervenir Falson Sensor
+  include_tasks: "{{ asb_accion }}.yml"

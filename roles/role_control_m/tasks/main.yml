@@ -1,0 +1,2 @@
+- name: Cargando PlayBook para intervenir Control-M_Agent
+  include_tasks: "{{ asb_accion }}.yml"

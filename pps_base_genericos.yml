@@ -1,0 +1,9 @@
+---
+- name: PlayBook Maestro de Programas Producto
+  hosts: all
+  vars:
+     - role_pp: "Seleccione una Programas Producto"
+     - task_accion: "Seleccione una accion"
+  tasks:
+    - include_role:
+        name: role_{{ role_pp }}
