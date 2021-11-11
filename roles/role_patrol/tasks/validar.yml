@@ -1,9 +1,9 @@
 - name: Validar proceso PatrolAgent
   shell: |
-      if [ $(pa -eo args | grep -v grep | grep -qw PatrolAgent | wc -l) -eq 1 ]
+      if [ $(ps -eo args | grep -v grep | grep -qw PatrolAgent | wc -l) -eq 1 ]
       then
       echo ACTIVO
-      elif [ $(pa -eo args | grep -v grep | grep -qw PatrolAgent | wc -l) -eq 0 ]
+      elif [ $(ps -eo args | grep -v grep | grep -qw PatrolAgent | wc -l) -eq 0 ]
       then
       echo INACTIVO
       fi      
