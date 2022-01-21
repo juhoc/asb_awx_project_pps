@@ -1,1 +1,41 @@
 ---
+- name: Alta proceso F-Response
+  become: yes
+  shell: |
+      if [ "$(hostname -i | tr " " "\n" | sort | uniq | grep -qw 148.244.31 && echo SI || echo NO)" = "SI" ]
+      then
+      /usr/bin/dbus_broker -m 148.244.31.201:5682 -d -i
+      elif [ "$(hostname -i | tr " " "\n" | sort | uniq | grep -qw 148.244.33 && echo SI || echo NO)" = "SI" ]
+      then
+      /usr/bin/dbus_broker -m 150.250.201.56:5682 -d -i
+      else
+      /usr/bin/dbus_broker -m 150.100.230.13:5682 -d -i
+      fi
+      
+- name: Validar proceso Control-M_Agent
+  shell: |
+      if [ "$(ps -eo args | grep -qw "/usr/bin/dbus_broker \-m" && echo SI || echo NO)" = "SI" ] && [ "$(sudo ss -lntp | grep -qw 3262 && echo SI || echo NO)" = "SI" ]
+      then
+      echo ACTIVO
+      elif [ "$(ps -eo args | grep -qw "/usr/bin/dbus_broker \-m" && echo SI || echo NO)" = "NO" ] && [ "$(sudo ss -lntp | grep -qw 3262 && echo SI || echo NO)" = "NO" ]
+      then
+      echo INACTIVO
+      elif [ "$(ps -eo args | grep -qw "/usr/bin/dbus_broker \-m" && echo SI || echo NO)" = "SI" ] || [ "$(sudo ss -lntp | grep -qw 3262 && echo SI || echo NO)" = "SI" ]
+            then
+      echo ACTIVACION_FALLIDA
+      fi
+  register: statusfr
+  
+- name: Resultado de la alta del proceso F-Response
+  debug:
+    msg:
+       - "Control-M_Agent ........{{ statuscm.stdout }}"
+  when: statuscm.stdout == "ACTIVO"
+  
+- name: Resultado de la alta del proceso Control-M_Agent
+  fail:
+    msg:
+       - "Control-M_Agent ........{{ statuscm.stdout }}"
+       - "No todos los procesos de Control-M_Agent estan ACTIVOS"
+       - "Escalar con el área de gestion de Mallas Control-M"
+  when: statuscm.stdout == "ACTIVACION_FALLIDA"
