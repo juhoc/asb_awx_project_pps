@@ -24,7 +24,7 @@
 - name: Resultado de la validacion del proceso CapacityAgent
   fail:
     msg:
-       - "CapacityAgent ........{{ statuscm.stdout }}"
+       - "CapacityAgent ........{{ statusca.stdout }}"
        - "No todos los procesos estan ACTIVOS"
        - "Escalar con el área de RTMonitoreo"
   when: statusca.stdout == "VALIDACION_FALLIDA"
