@@ -1,8 +1,13 @@
 - name: Alta proceso Control-M_Agent
   become: yes
   shell: |
-      /controlm/ag700/ctm/scripts/stop-ag 2>/dev/null -u ag700 -p ALL
-      /ctrlmagt/ctm/scripts/stop-ag 2>/dev/null -u ag700 -p ALL
+      if [ "$(ls -d /controlm)" = "/controlm" ]
+      then
+      /controlm/ag700/ctm/scripts/stop-ag -u ag700 -p ALL
+      elif [ "$(ls -d /ctrlmagt)" = "/ctrlmagt" ]
+      then
+      /ctrlmagt/ctm/scripts/stop-ag -u ag700 -p ALL
+      fi
 
 - name: Validar proceso Control-M_Agent
   shell: |
