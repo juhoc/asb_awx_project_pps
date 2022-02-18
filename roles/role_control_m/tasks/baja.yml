@@ -8,6 +8,7 @@
       then
       nohup /ctrlmagt/ctm/scripts/shut-ag -u ag700 -p ALL
       fi
+  ignore_errors: yes
 
 - name: Validar proceso Control-M_Agent
   shell: |
