@@ -1,4 +1,3 @@
-
 - name: Baja proceso Control-M_Agent
   become: yes
   shell: |
