@@ -1,2 +1,2 @@
 - name: Cargando PlayBook para intervenir CapacityAgent
-  include_tasks: "{{ task_accion }}.yml"
+  include_tasks: "{{ asb_accion }}.yml"
